@@ -1,0 +1,26 @@
+# Mac system files
+**/.DS_Store
+
+# Compiled python files
+*.pyc
+
+# Blender backup files
+*.blend[0-9]*
+
+# Virtual environment
+.venv/*
+
+# VSCode config
+.vscode/*
+
+# PyCharm config
+.idea/*
+
+# Test Reports
+reports/*
+
+# Requirements lock file
+requirements-lock.txt
+
+# Map json files
+src/assets/maps/*.json
