@@ -1,2 +1,3 @@
-# panda3d-project-template
-Panda3D Project Template
+# Panda3D Project Template
+
+This is the template I use for my Panda3D projects.
