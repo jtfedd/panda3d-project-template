@@ -40,4 +40,4 @@ jobs:
           commit-message: upgrade-dependencies
           title: Automated Dependency Upgrade
           body: |
-            Automated dependency upgrade
+            Automated dependency upgrade. Close and reopen to begin workflow runs.
