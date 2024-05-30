@@ -17,6 +17,6 @@ class Sphere:
 
     def update(self, task: Task) -> int:
         self.sphere.setZ(math.sin(task.time * 1.5))
-        self.sphere.setColorScale(0.1, 0.4, 1.0, 1.0)
+        self.sphere.setColorScale(0.2, 0.4, 1.0, 1.0)
 
         return task.cont
