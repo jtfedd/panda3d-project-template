@@ -16,6 +16,10 @@
 # PyCharm config
 .idea/*
 
+# Build output
+build/*
+dist/*
+
 # Test Reports
 reports/*
 

@@ -21,6 +21,10 @@ install-dev: ## Install build and dev dependencies
 	python -m pip install -r requirements.txt -r requirements-dev.txt
 	python -m pip freeze > requirements-lock.txt
 
+.PHONY: build
+build: ## Builds binaries
+	python setup.py bdist_apps
+
 .PHONY: upgrade
 upgrade: ## Upgrade all dependencies
 	python -m pip install --upgrade -r requirements.txt -r requirements-dev.txt
