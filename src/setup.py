@@ -1,18 +1,23 @@
 from setuptools import setup
 
+VERSION = "v0.0.2"
+NAME = "TemplateApp"
+EXECUTABLE = "template_app"
+
 setup(
-    name="TemplateApp",
+    name=NAME,
+    version=VERSION,
     options={
         "build_apps": {
             # Build template_app.exe as a GUI application
             "gui_apps": {
-                "template_app": "main.py",
+                EXECUTABLE: "main.py",
             },
             # Specify the path to the requirements file
             "requirements_path": "../requirements.txt",
             # Set the icon for the app
             "icons": {
-                "template_app": [
+                EXECUTABLE: [
                     "assets/icon/icon-16.png",
                     "assets/icon/icon-24.png",
                     "assets/icon/icon-32.png",
@@ -41,7 +46,6 @@ setup(
             "platforms": [
                 "manylinux2014_x86_64",
                 "win_amd64",
-                "macosx_11_0_arm64",
                 "macosx_10_15_x86_64",
             ],
         }
