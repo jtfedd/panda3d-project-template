@@ -39,6 +39,7 @@ jobs:
           requirements-dev.txt
     
     - run: make install-dev
+    - run: chmod +x ./tool/scripts/convert_bam.sh
     - run: make models
     - run: git diff --exit-code
 
