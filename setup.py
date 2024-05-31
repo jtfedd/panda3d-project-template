@@ -21,10 +21,9 @@ setup(
             # Specify platforms to build
             "platforms": [
                 "manylinux2014_x86_64",
-                "manylinux2014_aarch64",
                 "win_amd64",
                 "macosx_11_0_arm64",
-                "macosx_10_9_x86_64",
+                "macosx_10_15_x86_64",
             ],
         }
     },
