@@ -33,7 +33,12 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
+        cache: 'pip'
+        cache-dependency-path: |
+          requirements.txt
+          requirements-dev.txt
+    
+    - run: make install-dev
     - run: make models
     - run: git diff --exit-code
 
