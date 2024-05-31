@@ -28,8 +28,8 @@ build: ## Builds binaries
 	mv ./src/dist ./dist
 
 .PHONY: models
-models: ## Converts all models to .bam
-	./tool/scripts/convert_bam.sh ./src
+models: ## Convert all models to .bam
+	python tool/scripts/convert_bam.py
 
 .PHONY: upgrade
 upgrade: ## Upgrade all dependencies
