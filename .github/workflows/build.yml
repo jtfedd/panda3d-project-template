@@ -23,6 +23,7 @@ jobs:
                       installer: nsis
 
         steps:
+            - uses: actions/checkout@v4
             - name: Build ${{ matrix.build.platform }} ${{ matrix.build.installer }}
               uses: ./.github/workflows/build_platform.yml
               with:
