@@ -8,8 +8,6 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
         strategy:
             matrix:
                 build:
@@ -22,10 +20,7 @@ jobs:
                     - platform: win_amd64
                       installer: nsis
 
-        steps:
-            - uses: actions/checkout@v4
-            - name: Build ${{ matrix.build.platform }} ${{ matrix.build.installer }}
-              uses: ./.github/workflows/build_platform.yml
-              with:
-                platform: ${{ matrix.build.platform }}
-                installer: ${{ matrix.build.installer }}
+        uses: ./.github/workflows/build_platform.yml
+        with:
+            platform: ${{ matrix.build.platform }}
+            installer: ${{ matrix.build.installer }}
