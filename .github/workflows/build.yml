@@ -35,7 +35,7 @@ jobs:
         makensis -VERSION
   
     - name: Set Up Python 3.12
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: "3.12"
         cache: 'pip'
@@ -54,15 +54,4 @@ jobs:
       with:
         name: build-${{ matrix.build.platform }}-${{ matrix.build.installer }}
         path: src/dist
-  merge:
-   runs-on: ubuntu-latest
-   timeout-minutes: 5
-   needs: build
-
-   steps:
-   - name: Merge Artifacts
-     uses: actions/upload-artifact/merge@v4
-     with:
-       name: build
-       pattern: build-*
           
