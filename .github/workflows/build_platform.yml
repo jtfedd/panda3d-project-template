@@ -22,8 +22,8 @@ jobs:
       - name: Install NSIS
         if: ${{ inputs.installer }} == 'nsis'
         run: |
-          apt-get -y update
-          apt-get -y install nsis
+          sudo apt-get -y update
+          sudo apt-get -y install nsis
           makensis -VERSION
 
       - name: Set Up Python 3.12
