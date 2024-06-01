@@ -16,19 +16,21 @@ jobs:
         build:
           - platform: manylinux2014_x86_64
             installer: gztar
-            name: 'Stormfront (Linux)'
+            name: 'TemplateApp (Linux)'
           - platform: macosx_10_15_x86_64
             installer: zip
-            name: 'Stormfront (Mac)'
+            name: 'TemplateApp (Mac)'
           # ARM build not supported by Panda3D yet
           # - platform: macosx_11_0_aarch64
           #   installer: zip
+          # name: 'TemplateApp (Windows Installer)'
           - platform: win_amd64
             installer: zip
-            name: 'Stormfront (Windows)'
+            name: 'TemplateApp (Windows Archive)'
           # NSIS build not producing an output
           # - platform: win_amd64
           #   installer: nsis
+          # name: 'TemplateApp (Mac ARM)'
 
     steps:
     - name: Check out the branch
