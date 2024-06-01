@@ -23,9 +23,7 @@ install-dev: ## Install build and dev dependencies
 
 .PHONY: build
 build: ## Builds binaries
-	cd src && python setup.py bdist_apps
-	mv ./src/build ./build
-	mv ./src/dist ./dist
+	cd src && python setup.py --platform=$(platform) --installer=$(installer) bdist_apps
 
 .PHONY: models
 models: ## Convert all models to .bam

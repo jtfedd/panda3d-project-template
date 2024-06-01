@@ -1,0 +1,30 @@
+name: Build
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        strategy:
+            matrix:
+                build:
+                    - platform: manylinux2014_x86_64
+                      installer: gztar
+                    - platform: macosx_10_15_x86_64
+                      installer: zip
+                    - platform: win_amd64
+                      installer: zip
+                    - platform: win_amd64
+                      installer: nsis
+
+        steps:
+            - name: Build ${{ matrix.build.platform }} ${{ matrix.build.installer }}
+              uses: ./.github/workflows/build_platform.yml
+              with:
+                platform: ${{ matrix.build.platform }}
+                installer: ${{ matrix.build.installer }}

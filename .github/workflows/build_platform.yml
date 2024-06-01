@@ -1,0 +1,41 @@
+name: Build Platform
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        required: true
+        type: string
+      installer:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the branch
+        uses: actions/checkout@v4
+
+      - name: Set Up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install Dependencies
+        run: make install-dev
+
+      - name: Build
+        run: make build platform=${{ inputs.platform }} installer=${{ inputs.installer }}
+
+      - name: Publish Resolved Dependencies
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: src/dist/*

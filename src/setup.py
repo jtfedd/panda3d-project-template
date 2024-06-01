@@ -1,8 +1,44 @@
+import sys
+
 from setuptools import setup
+
+# manylinux2014_x86_64.gztar
+# win_amd64.zip, win_amd64.nsis
+# macosx_10_15_x86_64.zip
+
+PLATFORM_HELP = "Platform must be specified using --platform=<platform>"
+INSTALLER_HELP = "Installer must be specified using --installer=<installer>"
+
+
+def parseArg(argName: str, helpStr: str) -> str:
+    for arg in sys.argv:
+        if arg.startswith(f"--{argName}="):
+            sys.argv.remove(arg)
+
+            parts = arg.split("=")
+            if len(parts) != 2:
+                print(helpStr)
+                sys.exit(1)
+
+            value = parts[1]
+            if len(value) == 0:
+                print(helpStr)
+                sys.exit(1)
+
+            return value
+
+    print(helpStr)
+    sys.exit(1)
+
 
 VERSION = "v0.0.2"
 NAME = "TemplateApp"
 EXECUTABLE = "template_app"
+
+PLATFORM = parseArg("platform", PLATFORM_HELP)
+INSTALLER = parseArg("installer", INSTALLER_HELP)
+
+print(NAME, EXECUTABLE, VERSION, PLATFORM, INSTALLER)
 
 setup(
     name=NAME,
@@ -41,13 +77,13 @@ setup(
             # Include the OpenGL renderer
             "plugins": [
                 "pandagl",
+                "p3openal_audio",
             ],
             # Specify platforms to build
-            "platforms": [
-                "manylinux2014_x86_64",
-                "win_amd64",
-                "macosx_10_15_x86_64",
-            ],
-        }
+            "platforms": [PLATFORM],
+        },
+        "bdist_apps": {
+            "installers": {PLATFORM: INSTALLER},
+        },
     },
 )
