@@ -2,10 +2,6 @@ import sys
 
 from setuptools import setup
 
-# manylinux2014_x86_64.gztar
-# win_amd64.zip, win_amd64.nsis
-# macosx_10_15_x86_64.zip
-
 PLATFORM_HELP = "Platform must be specified using --platform=<platform>"
 INSTALLER_HELP = "Installer must be specified using --installer=<installer>"
 

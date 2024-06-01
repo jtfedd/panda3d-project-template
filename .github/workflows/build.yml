@@ -16,12 +16,19 @@ jobs:
         build:
           - platform: manylinux2014_x86_64
             installer: gztar
+            name: 'Stormfront (Linux)'
           - platform: macosx_10_15_x86_64
             installer: zip
+            name: 'Stormfront (Mac)'
+          # ARM build not supported by Panda3D yet
+          # - platform: macosx_11_0_aarch64
+          #   installer: zip
           - platform: win_amd64
             installer: zip
-          - platform: win_amd64
-            installer: nsis
+            name: 'Stormfront (Windows)'
+          # NSIS build not producing an output
+          # - platform: win_amd64
+          #   installer: nsis
 
     steps:
     - name: Check out the branch
@@ -52,6 +59,6 @@ jobs:
     - name: Upload Build
       uses: actions/upload-artifact@v4
       with:
-        name: build-${{ matrix.build.platform }}-${{ matrix.build.installer }}
-        path: src/dist
+        name: ${{ matrix.build.name }}
+        path: src/dist*
           
