@@ -1,26 +1,57 @@
 name: Build
 
 on:
-    push:
-        branches: [ "main" ]
-    pull_request:
-        branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-    build:
-        strategy:
-            matrix:
-                build:
-                    - platform: manylinux2014_x86_64
-                      installer: gztar
-                    - platform: macosx_10_15_x86_64
-                      installer: zip
-                    - platform: win_amd64
-                      installer: zip
-                    - platform: win_amd64
-                      installer: nsis
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
 
-        uses: ./.github/workflows/build_platform.yml
-        with:
-            platform: ${{ matrix.build.platform }}
-            installer: ${{ matrix.build.installer }}
+    strategy:
+      matrix:
+        build:
+          - platform: manylinux2014_x86_64
+            installer: gztar
+          - platform: macosx_10_15_x86_64
+            installer: zip
+          - platform: win_amd64
+            installer: zip
+          - platform: win_amd64
+            installer: nsis
+
+    steps:
+    - name: Check out the branch
+      uses: actions/checkout@v4
+  
+    - name: Install NSIS
+      if: matrix.build.installer == 'nsis'
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install nsis
+        makensis -VERSION
+  
+    - name: Set Up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+        cache: 'pip'
+        cache-dependency-path: |
+          requirements.txt
+          requirements-dev.txt
+  
+    - name: Install Dependencies
+      run: make install-dev
+  
+    - name: Build
+      run: make build platform=${{ matrix.build.platform }} installer=${{ matrix.build.installer }}
+  
+    - name: Upload Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: src/dist
+          
