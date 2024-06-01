@@ -19,6 +19,13 @@ jobs:
       - name: Check out the branch
         uses: actions/checkout@v4
 
+      - name: Install NSIS
+        if: ${{ inputs.installer }} == 'nsis'
+        run: |
+          apt-get -y update
+          apt-get -y install nsis
+          makensis -VERSION
+
       - name: Set Up Python 3.12
         uses: actions/setup-python@v4
         with:
@@ -38,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: src/dist/*
+          path: src/dist
