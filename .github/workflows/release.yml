@@ -22,6 +22,7 @@ jobs:
         with:
           pattern: build-*
           path: dist
+          merge-multiple: true
       - name: Print file structure
         run: ls -R dist
       - name: Publish Release
