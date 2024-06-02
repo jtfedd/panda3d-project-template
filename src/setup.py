@@ -27,7 +27,7 @@ def parseArg(argName: str, helpStr: str) -> str:
     sys.exit(1)
 
 
-VERSION = "v0.0.2"
+VERSION = "v0.0.3"
 NAME = "TemplateApp"
 EXECUTABLE = "template_app"
 
