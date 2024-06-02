@@ -1,0 +1,67 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        build:
+          - platform: manylinux2014_x86_64
+            installer: gztar
+            name: 'TemplateApp (Linux)'
+          - platform: macosx_10_15_x86_64
+            installer: zip
+            name: 'TemplateApp (Mac)'
+          # ARM build not supported by Panda3D yet
+          # - platform: macosx_11_0_aarch64
+          #   installer: zip
+          # name: 'TemplateApp (Windows Installer)'
+          - platform: win_amd64
+            installer: zip
+            name: 'TemplateApp (Windows Archive)'
+          # NSIS build not producing an output
+          # - platform: win_amd64
+          #   installer: nsis
+          # name: 'TemplateApp (Mac ARM)'
+
+    steps:
+    - name: Check out the branch
+      uses: actions/checkout@v4
+  
+    - name: Install NSIS
+      if: matrix.build.installer == 'nsis'
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install nsis
+        makensis -VERSION
+  
+    - name: Set Up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: 'pip'
+        cache-dependency-path: |
+          requirements.txt
+          requirements-dev.txt
+  
+    - name: Install Dependencies
+      run: make install-dev
+  
+    - name: Build
+      run: make build platform=${{ matrix.build.platform }} installer=${{ matrix.build.installer }}
+  
+    - name: Upload Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-${{matrix.build.platform}}-${{matrix.build.installer}}
+        path: src/dist
+          

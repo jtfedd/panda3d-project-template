@@ -21,6 +21,14 @@ install-dev: ## Install build and dev dependencies
 	python -m pip install -r requirements.txt -r requirements-dev.txt
 	python -m pip freeze > requirements-lock.txt
 
+.PHONY: build
+build: ## Builds binaries
+	cd src && python setup.py --platform=$(platform) --installer=$(installer) bdist_apps
+
+.PHONY: models
+models: ## Convert all models to .bam
+	python tool/scripts/convert_bam.py
+
 .PHONY: upgrade
 upgrade: ## Upgrade all dependencies
 	python -m pip install --upgrade -r requirements.txt -r requirements-dev.txt

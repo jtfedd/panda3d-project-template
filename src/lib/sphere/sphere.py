@@ -6,7 +6,7 @@ from direct.task.Task import Task
 
 class Sphere:
     def __init__(self, base: ShowBase) -> None:
-        sphere = base.loader.loadModel("assets/sphere.glb")
+        sphere = base.loader.loadModel("assets/sphere.bam")
         if sphere is None:
             return
 
